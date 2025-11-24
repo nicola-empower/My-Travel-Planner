@@ -11,10 +11,9 @@
 - **Documents Manager** — Securely store travel documents and emergency contacts.
 - **Photo Gallery** — Upload and save memories from your trip.
 
-##  Getting Started
+##  Take a look!
 
-1. **Clone the repository**
-4. Open [http://localhost:3000](http://localhost:3000) to view the app.
+https://my-travel-planner-virid.vercel.app/
 
 ##  Usage Overview
 
