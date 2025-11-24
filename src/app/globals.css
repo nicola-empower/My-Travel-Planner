@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ec4899;
+  --color-primary-light: #fbcfe8;
+  --color-primary-dark: #be185d;
+  --color-secondary: #6b7280;
+  --color-secondary-light: #e5e7eb;
+  --color-secondary-dark: #374151;
+
+  --font-dancing: var(--font-dancing);
+  --font-montserrat: var(--font-montserrat);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: linear-gradient(to bottom right, #6dd5ed, #4CAF50);
+  /* Fallback */
+  background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-montserrat), sans-serif;
+  min-height: 100vh;
+}
+
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #333;
+}
+
+.glass-button {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+}

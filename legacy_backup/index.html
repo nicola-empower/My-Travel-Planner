@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wee Wander Planner</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #6dd5ed;
+            /* Beach blue */
+            --secondary-sand: #f2e9d2;
+            /* Sandy beige */
+            --accent-turquoise: #4CAF50;
+            /* Turkish accent green */
+            --accent-orange: #FF9800;
+            /* Turkish accent orange */
+            --accent-white: #f8f8f8;
+            /* Crisp white */
+            --dark-text: #333;
+            --light-text: #f0f0f0;
+            --section-bg: rgba(255, 255, 255, 0.9);
+            --header-bg: rgba(109, 213, 237, 0.9);
+            --footer-bg: rgba(51, 51, 51, 0.8);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            /* Bold for main text */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, var(--primary-blue), var(--accent-turquoise));
+            /* Beachy gradient */
+            color: var(--dark-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: url('https://source.unsplash.com/random/1920x1080/?beach,mediterranean,cyprus');
+            /* Placeholder for beachy image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Dancing Script', cursive;
+            /* Curvy for headings */
+            color: var(--dark-text);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: var(--light-text);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--primary-blue);
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--section-bg);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            flex-grow: 1;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--light-text);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(51, 51, 51, 0.8);
+            padding: 10px 0;
+            border-radius: 10px;
+            margin: 10px auto;
+            max-width: 800px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: var(--accent-turquoise);
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: var(--secondary-sand);
+            /* Inner section background */
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        section h2 {
+            font-family: 'Montserrat', sans-serif;
+            /* Bold for section titles */
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-align: left;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .itinerary-item,
+        .packing-item,
+        .expense-item,
+        .note-item {
+            background-color: var(--accent-white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .itinerary-item strong,
+        .packing-item strong,
+        .expense-item strong {
+            color: var(--primary-blue);
+        }
+
+        /* Map embed CSS removed as no maps will be present */
+
+        .checklist label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.5);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--dark-text);
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="number"],
+        .input-group input[type="datetime-local"],
+        .input-group textarea,
+        .input-group select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            width: calc(100% - 22px);
+            /* Adjust for padding and border */
+            box-sizing: border-box;
+        }
+
+        .input-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: var(--primary-blue);
+            color: var(--light-text);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: var(--accent-turquoise);
+            transform: translateY(-2px);
+        }
+
+        .add-item-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .add-item-form {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        .add-item-form button {
+            grid-column: span 1;
+            /* Or larger span if needed */
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--light-text);
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Wee Wander Planner</h1>
+    </header>
+
+    <nav>
+        <a href="#itinerary">Itinerary</a>
+        <a href="#packing">Packing</a>
+        <a href="#budget">Budget</a>
+        <a href="#notes">Notes</a>
+        <a href="#documents">Documents</a> <a href="#photos">Photos</a>
+    </nav>
+
+    <div class="container">
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <p>Welcome, Nicola! Your next adventure awaits!</p>
+            <div id="nextEvent"
+                style="font-size: 1.2em; font-weight: bold; margin-top: 15px; color: var(--accent-orange);">Loading next
+                event...</div>
+            <div id="countdown" style="font-size: 1.1em; margin-top: 10px;"></div>
+        </section>
+
+        <section id="itinerary">
+            <h2>Your Meticulous Itinerary</h2>
+            <div id="itinerary-list">
+            </div>
+        </section>
+
+        <section id="packing">
+            <h2>Packing List</h2>
+            <form id="addPackingItemForm" class="add-item-form">
+                <div class="input-group">
+                    <label for="newPackingItem">Add Item:</label>
+                    <input type="text" id="newPackingItem" placeholder="e.g., Mini shampoo, Comfy shoes" required>
+                </div>
+                <button type="submit">Add to List</button>
+            </form>
+            <div id="packing-checklist" class="checklist">
+            </div>
+            <p style="margin-top: 20px; font-weight: bold; color: var(--accent-orange);">
+                *Remember to check mobile roaming costs & consider a local eSIM!*
+            </p>
+        </section>
+
+        <section id="budget">
+            <h2>Budget Tracker</h2>
+            <div id="budget-summary">
+                <p><strong>Total Fixed Costs:</strong> <span id="totalFixedCost">£0.00</span></p>
+                <p><strong>Total Variable Spending:</strong> <span id="totalVariableSpending">£0.00</span></p>
+                <h3>Add New Expense:</h3>
+            </div>
+            <form id="addExpenseForm" class="add-item-form">
+                <div class="input-group">
+                    <label for="expenseDescription">Description:</label>
+                    <input type="text" id="expenseDescription" placeholder="e.g., Concert ticket, Dinner" required>
+                </div>
+                <div class="input-group">
+                    <label for="expenseAmount">Amount (£):</label>
+                    <input type="number" id="expenseAmount" step="0.01" min="0" required>
+                </div>
+                <div class="input-group">
+                    <label for="expenseCategory">Category:</label>
+                    <select id="expenseCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="fixed">Fixed Cost (e.g., Flights, Concert)</option>
+                        <option value="meals">Meals & Drinks</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="activities">Activities</option>
+                        <option value="transport">Local Transport</option>
+                        <option value="souvenirs">Souvenirs</option>
+                        <option value="miscellaneous">Miscellaneous</option>
+                    </select>
+                </div>
+                <button type="submit">Add Expense</button>
+            </form>
+            <div id="expense-list">
+                <h3>Expense Breakdown:</h3>
+            </div>
+        </section>
+
+        <section id="notes">
+            <h2>Miscellaneous Notes</h2>
+            <div class="input-group">
+                <label for="generalNotes">Your Thoughts & Reminders:</label>
+                <textarea id="generalNotes" placeholder="Jot down anything important..."></textarea>
+                <button id="saveNotes">Save Notes</button>
+            </div>
+
+            <h3 style="margin-top: 30px;">Souvenir Ideas:</h3>
+            <form id="addSouvenirForm" class="add-item-form">
+                <div class="input-group">
+                    <label for="newSouvenir">Souvenir Idea:</label>
+                    <input type="text" id="newSouvenir" placeholder="e.g., Shortbread for Auntie Jean" required>
+                </div>
+                <div class="input-group">
+                    <label for="souvenirBudget">Budget (£):</label>
+                    <input type="number" id="souvenirBudget" step="0.01" min="0" placeholder="e.g., 15.00">
+                </div>
+                <button type="submit">Add Souvenir</button>
+            </form>
+            <ul id="souvenir-list">
+            </ul>
+
+            <h3 style="margin-top: 30px;">Kiddo Corner (Your Reference):</h3>
+            <div class="input-group">
+                <label for="carerContact">Carer's Contact Info:</label>
+                <input type="text" id="carerContact" placeholder="Name, Phone Number">
+            </div>
+            <div class="input-group">
+                <label for="kidsAllergies">Kids' Allergies/Meds:</label>
+                <textarea id="kidsAllergies" placeholder="e.g., Dylan: nut allergy, Robyn: daily vitamin..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="kidsRoutine">Kids' Routine/Notes:</label>
+                <textarea id="kidsRoutine"
+                    placeholder="e.g., Robyn's bedtime 7pm, Dylan 30 min screen time..."></textarea>
+            </div>
+            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; margin-top: 20px;">Easy Meals for Kids:
+            </h4>
+            <div class="input-group">
+                <label for="mealFriday">Friday Meal:</label>
+                <input type="text" id="mealFriday" placeholder="e.g., Pasta with pesto">
+            </div>
+            <div class="input-group">
+                <label for="mealSaturday">Saturday Meal:</label>
+                <input type="text" id="mealSaturday" placeholder="e.g., Fish fingers and chips">
+            </div>
+            <div class="input-group">
+                <label for="mealSunday">Sunday Meal:</label>
+                <input type="text" id="mealSunday" placeholder="e.g., Chicken nuggets">
+            </div>
+            <button id="saveKiddoInfo">Save Kiddo Info</button>
+        </section>
+
+        <section id="documents">
+            <h2>Essential Documents & Links</h2>
+            <h3>Personal Travel Documents:</h3>
+            <div class="input-group">
+                <label for="passportNumber">Passport Number:</label>
+                <input type="text" id="passportNumber" placeholder="e.g., 123456789">
+            </div>
+            <div class="input-group">
+                <label for="passportExpiry">Passport Expiry:</label>
+                <input type="date" id="passportExpiry">
+            </div>
+            <div class="input-group">
+                <label for="travelInsurance">Travel Insurance Policy & Contact:</label>
+                <textarea id="travelInsurance"
+                    placeholder="Policy number, company name, emergency contact..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="localEmergency">Local Emergency Numbers:</label>
+                <textarea id="localEmergency" placeholder="Police, Ambulance, Embassy..."></textarea>
+            </div>
+            <button id="saveDocuments">Save Documents</button>
+
+            <h3 style="margin-top: 30px;">Important Links:</h3>
+            <form id="addImportantLinkForm" class="add-item-form">
+                <div class="input-group">
+                    <label for="linkDescription">Description:</label>
+                    <input type="text" id="linkDescription" placeholder="e.g., Hotel Booking Confirmation" required>
+                </div>
+                <div class="input-group">
+                    <label for="linkURL">URL:</label>
+                    <input type="url" id="linkURL" placeholder="https://example.com/booking" required>
+                </div>
+                <button type="submit">Add Link</button>
+            </form>
+            <ul id="important-links-list">
+            </ul>
+        </section>
+
+
+        <section id="photos">
+            <h2>Photo Dump</h2>
+            <div class="input-group">
+                <label for="photoUpload">Upload Your Trip Photos:</label>
+                <input type="file" id="photoUpload" accept="image/*" multiple>
+                <button id="uploadPhotos">Add Photos</button>
+            </div>
+            <div id="photo-gallery" class="photo-gallery">
+                <p>No photos uploaded yet. Get snapping!</p>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2025 My Wee Wander Planner. Nicola Berry</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC2YaBy51O6_KNEu8mJwBVRKIkawN5vSiM",
+            authDomain: "my-wee-wander-planner-data.firebaseapp.com",
+            projectId: "my-wee-wander-planner-data",
+            storageBucket: "my-wee-wander-planner-data.firebasestorage.app",
+            messagingSenderId: "627062846720",
+            appId: "1:627062846720:web:01c83374e1beca22626fe5",
+            measurementId: "G-5Y83126615"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        // IMPORTANT: Hardcode your specific User ID here to load your original data
+        let userId = 'ysAsrVtD6CPB8fTVq0EQRH4A9Lx2';
+        // Using a specific document ID for this travel plan
+        let travelPlanRef;
+
+        // --- Global Data Object ---
+        // This object will hold all your travel planning data
+        let travelData = {
+            itinerary: [],
+            packingList: [],
+            budget: {
+                fixedCosts: [],
+                expenses: []
+            },
+            notes: {
+                general: '',
+                souvenirs: [],
+                kiddoInfo: {
+                    carerContact: '',
+                    allergies: '',
+                    routine: '',
+                    meals: { friday: '', saturday: '', sunday: '' }
+                }
+            },
+            documentsAndLinks: { // New section for documents and links
+                passportNumber: '',
+                passportExpiry: '',
+                travelInsurance: '',
+                localEmergency: '',
+                importantLinks: []
+            },
+            photos: [] // Storing image URLs/base64 for simplicity; full app would use Firebase Storage
+        };
+
+        // --- Helper Functions ---
+
+        // Function to save data to Firebase
+        async function saveDataToFirebase() {
+            if (!userId || !travelPlanRef) {
+                console.error("User not authenticated or travelPlanRef not set. Cannot save.");
+                return;
+            }
+            try {
+                await travelPlanRef.set(travelData);
+                console.log("Data saved to Firebase!");
+            } catch (error) {
+                console.error("Error saving data to Firebase:", error);
+            }
+        }
+
+        // Function to load data from Firebase
+        function loadDataFromFirebase() {
+            if (!userId) {
+                console.error("User not authenticated for data load.");
+                return;
+            }
+            // Use onSnapshot for real-time updates
+            travelPlanRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    travelData = doc.data();
+                    console.log("Data loaded from Firebase:", travelData);
+                    renderAllSections(); // Re-render everything after loading
+                } else {
+                    console.log("No data found for user, initializing with defaults.");
+                    initializeDefaultData(); // If no data, populate with initial details
+                    saveDataToFirebase(); // Save the defaults
+                }
+            }, (error) => {
+                console.error("Error loading data from Firebase:", error);
+            });
+        }
+
+        // --- Data Initialization (Your pre-filled travel details!) ---
+        function initializeDefaultData() {
+            // Itinerary data
+            travelData.itinerary = [
+                {
+                    type: 'travel',
+                    date: 'Friday, 11th July 2025',
+                    title: 'Departure Day - Scotland to London',
+                    details: [
+                        { time: '07:00 AM', description: 'Depart 26 Chapel Drive' },
+                        { time: 'Travel', description: 'Local journey to Larbert Train Station.' },
+                        { time: '07:30 AM', description: 'Depart Larbert Train Station (Train to Haymarket)' },
+                        { time: '08:00 AM', description: 'Arrive Haymarket Station, Edinburgh' },
+                        { time: '08:15 AM', description: 'Depart Haymarket by Tram to Edinburgh Airport' },
+                        { time: '08:45 AM', description: 'Arrive Edinburgh Airport (EDI)' },
+                        { time: '09:00 AM', description: 'Airport check-in & Security (for Flight 1)' },
+                    ],
+                    flight: {
+                        number: 'RK1274', airline: 'Ryanair', departure: 'Edinburgh (EDI) 10:15 AM', arrival: 'London Stansted (STN) 11:40 AM',
+                        confirmation: 'RT19MJ', notes: 'Seat 12A, Priority & 2 Cabin Bags. To do: Check-in online.'
+                    },
+                },
+                {
+                    type: 'gap',
+                    date: 'Friday, 11th July 2025',
+                    title: 'The Essex Adventure',
+                    details: [
+                        { time: '11:40 AM', description: 'Arrive London Stansted (STN).' },
+                        { time: '11:40 AM - 12:00 PM', description: 'De-plane, head to Coach Station.' },
+                        { time: '12:04 PM', description: 'Depart Stansted Airport Coach Station (Bus X10/X30) to Chelmsford Bus Station.' },
+                        { time: 'Travel Time', description: '~30-40 mins.' },
+                        { time: '12:35 PM (approx.)', description: 'Arrive Chelmsford Bus Station.' },
+                    ],
+                    shopping: [
+                        { time: '12:45 PM - 14:45 PM', description: 'Shopping Time in Chelmsford (Primark/New Look).' }
+                    ],
+                    details_part2: [
+                        { time: '14:45 PM (approx.)', description: 'Taxi from Primark area (Chelmsford) to 120 Avon Road, Chelmsford.' },
+                        { time: 'Travel Time', description: '~10-15 mins by taxi.' },
+                        { time: '15:00 PM onwards', description: 'Arrive at friend\'s house (120 Avon Road).' },
+                    ],
+                    details_part3: [
+                        { time: '20:30 PM (approx.)', description: 'Depart friend\'s house (120 Avon Road) for Stansted Airport by car.' },
+                        { time: 'Travel Time', description: '~30-40 mins by car.' },
+                        { time: '21:10 PM (approx.)', description: 'Arrive London Stansted Airport (STN).' },
+                        { time: '21:10 PM - 23:10 PM', description: 'Airport check-in & Security (for Flight 2).' },
+                    ],
+                    flights_connecting: [
+                        {
+                            number: 'VF1992', airline: 'AJet', departure: 'London Stansted (STN) 23:10 PM', arrival: 'Istanbul Sabiha Gökçen (SAW) 05:10 AM (Sat)',
+                            confirmation: '2UY6FF', notes: 'Basic / V Class. Baggage Allowance: 0.'
+                        }
+                    ]
+                },
+                {
+                    type: 'travel',
+                    date: 'Saturday, 12th July 2025',
+                    title: 'Travel to North Cyprus',
+                    details: [
+                        { time: '06:45 AM', description: 'Depart Istanbul Sabiha Gökçen (SAW) - Flight VF153 (AJet)' },
+                        { time: '08:15 AM', description: 'Arrive Lefkosa Ercan (ECN)' }
+                    ]
+                },
+                {
+                    type: 'activity',
+                    date: 'Saturday, 12th July 2025',
+                    title: 'Cyprus Fun & Jason Derulo Concert!',
+                    details: [
+                        { time: 'Morning', description: 'Sun time, fun time! (Your own activities)' },
+                        { time: '17:00 PM - 18:00 PM', description: 'Getting Ready for Jason Derulo Concert' },
+                        { time: '18:00 PM - 21:00 PM', description: 'Meal and Drinks Before Jason Derulo Concert' },
+                        { time: '21:00 PM - 04:00 AM (Sun)', description: 'Jason Derulo Concert at Chamada Beach Club. Ticket Cost: £75' }
+                    ]
+                },
+                {
+                    type: 'activity',
+                    date: 'Sunday, 13th July 2025',
+                    title: 'Recovery & Return Travel Prep',
+                    details: [
+                        { time: '04:00 AM - 08:00 AM', description: 'Sleep after Concert' },
+                        { time: '08:00 AM onwards', description: 'Souvenir Shopping & Breakfast' },
+                        { time: '12:40 PM (approx.)', description: 'Depart Catalkoy for Ercan Airport by car.' },
+                        { time: 'Travel Time', description: '~40-50 mins.' },
+                    ],
+                    details_part2: [
+                        { time: '13:30 PM (approx.)', description: 'Arrive Lefkosa Ercan (ECN).' },
+                        { time: '13:30 PM - 15:30 PM', description: 'Airport check-in & Security (for Flight 4).' },
+                    ],
+                    flights_connecting: [
+                        {
+                            number: 'VF158', airline: 'AJet', departure: 'Lefkosa Ercan (ECN) 15:30 PM', arrival: 'Istanbul Sabiha Gökçen (SAW) 17:10 PM',
+                            confirmation: '2UY6FF', notes: 'Basic / D Class. Baggage Allowance: 0.'
+                        },
+                        {
+                            number: 'VF1991', airline: 'AJet', departure: 'Istanbul Sabiha Gökçen (SAW) 19:40 PM', arrival: 'London Stansted (STN) 21:45 PM',
+                            confirmation: '2UY6FF', notes: 'Basic / U Class. Baggage Allowance: 0.'
+                        }
+                    ]
+                },
+                {
+                    type: 'travel',
+                    date: 'Monday, 14th July 2025',
+                    title: 'The Final Leg Home',
+                    details: [
+                        { time: '05:45 AM (approx.)', description: 'Depart friend\'s house (120 Avon Road, Chelmsford) by car to Stansted Airport.' },
+                        { time: 'Travel Time', description: '~30-40 mins by car.' },
+                    ],
+                    details_part2: [
+                        { time: '06:30 AM (approx.)', description: 'Arrive London Stansted Airport (STN).' },
+                        { time: '06:30 AM - 08:30 AM', description: 'Airport check-in & Security (for Flight 6).' },
+                    ],
+                    flight: {
+                        number: 'RK9817', airline: 'Ryanair', departure: 'London Stansted (STN) 08:30 AM', arrival: 'Edinburgh (EDI) 09:50 AM',
+                        confirmation: 'RT19MJ', notes: 'Seat 12A, Priority & 2 Cabin Bags. To do: Check-in online.'
+                    },
+                    return_home: [
+                        { time: '09:50 AM', description: 'Land at Edinburgh Airport (EDI).' },
+                        { time: '10:00 - 10:30 AM', description: 'Disembark, make your way to airport tram stop.' },
+                        { time: '10:30 AM (approx)', description: 'Depart Edinburgh Airport by tram to Haymarket Station.' },
+                    ],
+                    return_home_part2: [
+                        { time: '11:00 AM (approx)', description: 'Depart Haymarket by train to Larbert Station.' },
+                        { time: '11:40 AM onwards', description: 'Local travel from Larbert Station back to 26 Chapel Drive.' }
+                    ],
+                }
+            ];
+
+            // Packing List default items
+            travelData.packingList = [
+                { item: 'Passport', packed: false, category: 'essentials' },
+                { item: 'Flight Tickets/Confirmations', packed: false, category: 'essentials' },
+                { item: 'Debit/Credit Cards & Some Cash', packed: false, category: 'essentials' },
+                { item: 'Phone Charger & Travel Adapter', packed: false, category: 'essentials' },
+                { item: 'Toothbrush & Mini Toiletries', packed: false, category: 'hand-luggage' },
+                { item: 'Concert Outfit', packed: false, category: 'night-out' },
+                { item: 'Dancing Shoes', packed: false, category: 'night-out' },
+                { item: 'Small Umbrella (just in case!)', packed: false, category: 'hand-luggage' },
+                { item: 'Headphones', packed: false, category: 'hand-luggage' },
+                { item: 'Painkillers/Basic First Aid', packed: false, category: 'essentials' },
+                { item: 'Book/Entertainment for flights', packed: false, category: 'misc' },
+                { item: 'Swimsuit/Beachwear', packed: false, category: 'fun' },
+                { item: 'Sunscreen', packed: false, category: 'fun' }
+            ];
+
+            // Budget fixed costs (example values from our chat)
+            travelData.budget.fixedCosts = [
+                { description: 'Ryanair Flights (EDI-STN & STN-EDI)', amount: 193.48, date: '2025-06-29' },
+                { description: 'AJet Flights (STN-SAW-ECN-SAW-STN)', amount: 201.80, date: '2025-06-29' },
+                { description: 'Jason Derulo Concert Ticket', amount: 75.00, date: '2025-06-29' }
+            ];
+
+            // Initial Notes/Souvenirs/Kiddo Info
+            travelData.notes.general = "Don't forget to send postcards!";
+            travelData.notes.souvenirs = [
+                { item: 'Shortbread for Auntie Jean', budget: 10.00 },
+                { item: 'Little Nessie for Robyn', budget: 5.00 }
+            ];
+            travelData.notes.kiddoInfo.carerContact = 'Friend/Family Name, 07XXXXXXXXX';
+            travelData.notes.kiddoInfo.allergies = 'Dylan: nut allergy; Robyn: no known allergies';
+            travelData.notes.kiddoInfo.routine = 'Robyn bedtime 7 PM, Dylan 30 min screen time after homework.';
+            travelData.notes.kiddoInfo.meals.friday = 'Pasta with pesto';
+            travelData.notes.kiddoInfo.meals.saturday = 'Fish fingers and chips';
+            travelData.notes.kiddoInfo.meals.sunday = 'Chicken nuggets';
+
+            // Photos will start empty
+            travelData.photos = [];
+        }
+
+        // --- DOM Elements ---
+        const itineraryList = document.getElementById('itinerary-list');
+        const packingChecklist = document.getElementById('packing-checklist');
+        const addPackingItemForm = document.getElementById('addPackingItemForm');
+        const newPackingItemInput = document.getElementById('newPackingItem');
+        const totalFixedCostSpan = document.getElementById('totalFixedCost');
+        const totalVariableSpendingSpan = document.getElementById('totalVariableSpending');
+        const addExpenseForm = document.getElementById('addExpenseForm');
+        const expenseDescriptionInput = document.getElementById('expenseDescription');
+        const expenseAmountInput = document.getElementById('expenseAmount');
+        const expenseCategorySelect = document.getElementById('expenseCategory');
+        const expenseListDiv = document.getElementById('expense-list');
+        const generalNotesTextarea = document.getElementById('generalNotes');
+        const saveNotesButton = document.getElementById('saveNotes');
+        const addSouvenirForm = document.getElementById('addSouvenirForm');
+        const newSouvenirInput = document.getElementById('newSouvenir');
+        const souvenirBudgetInput = document.getElementById('souvenirBudget');
+        const souvenirListUl = document.getElementById('souvenir-list');
+        const carerContactInput = document.getElementById('carerContact');
+        const kidsAllergiesTextarea = document.getElementById('kidsAllergies');
+        const kidsRoutineTextarea = document.getElementById('kidsRoutine');
+        const mealFridayInput = document.getElementById('mealFriday');
+        const mealSaturdayInput = document.getElementById('mealSaturday');
+        const mealSundayInput = document.getElementById('mealSunday');
+        const saveKiddoInfoButton = document.getElementById('saveKiddoInfo');
+        const photoUploadInput = document.getElementById('photoUpload');
+        const uploadPhotosButton = document.getElementById('uploadPhotos');
+        const photoGalleryDiv = document.getElementById('photo-gallery');
+        const nextEventDiv = document.getElementById('nextEvent');
+        const countdownDiv = document.getElementById('countdown');
+        // New DOM elements for Documents & Links section (this block should ONLY appear ONCE)
+        const passportNumberInput = document.getElementById('passportNumber');
+        const passportExpiryInput = document.getElementById('passportExpiry');
+        const travelInsuranceTextarea = document.getElementById('travelInsurance');
+        const localEmergencyTextarea = document.getElementById('localEmergency');
+        const saveDocumentsButton = document.getElementById('saveDocuments');
+        const addImportantLinkForm = document.getElementById('addImportantLinkForm');
+        const linkDescriptionInput = document.getElementById('linkDescription');
+        const linkURLInput = document.getElementById('linkURL');
+        const importantLinksListUl = document.getElementById('important-links-list');
+
+
+        // --- Rendering Functions ---
+
+        function renderItinerary() {
+            itineraryList.innerHTML = ''; // Clear previous content
+            travelData.itinerary.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'itinerary-item';
+
+                let content = `<h3>${item.date} - ${item.title}</h3>`;
+
+                item.details.forEach(detail => {
+                    content += `<p><strong>${detail.time}:</strong> ${detail.description}</p>`;
+                });
+
+                if (item.flight) {
+                    content += `
+                        <div class="itinerary-flight-details">
+                            <p><strong>Flight:</strong> ${item.flight.airline} ${item.flight.number}</p>
+                            <p><strong>Route:</strong> ${item.flight.departure} to ${item.flight.arrival}</p>
+                            <p><strong>Confirmation:</strong> ${item.flight.confirmation}</p>
+                            <p><strong>Notes:</strong> ${item.flight.notes}</p>
+                        </div>
+                    `;
+                }
+
+                // No map links here.
+
+
+                if (item.shopping) {
+                    item.shopping.forEach(shop => {
+                        content += `<p><strong>${shop.time}:</strong> ${shop.description}</p>`;
+                    });
+                }
+                if (item.details_part2) {
+                    item.details_part2.forEach(detail => {
+                        content += `<p><strong>${detail.time}:</strong> ${detail.description}</p>`;
+                    });
+                }
+                if (item.details_part3) {
+                    item.details_part3.forEach(detail => {
+                        content += `<p><strong>${detail.time}:</strong> ${detail.description}</p>`;
+                    });
+                }
+                if (item.return_home) {
+                    item.return_home.forEach(detail => {
+                        content += `<p><strong>${detail.time}:</strong> ${detail.description}</p>`;
+                    });
+                }
+                if (item.return_home_part2) {
+                    item.return_home_part2.forEach(detail => {
+                        content += `<p><strong>${detail.time}:</strong> ${detail.description}</p>`;
+                    });
+                }
+
+
+                if (item.flights_connecting && item.flights_connecting.length > 0) {
+                    content += `<div class="itinerary-flight-details-separator"><hr></div>`; // Add separator
+                    item.flights_connecting.forEach(flight => {
+                        content += `
+                            <div class="itinerary-flight-details">
+                                <p><strong>Connecting Flight:</strong> ${flight.airline} ${flight.number}</p>
+                                <p><strong>Route:</strong> ${flight.departure} to ${flight.arrival}</p>
+                                <p><strong>Confirmation:</strong> ${flight.confirmation}</p>
+                                <p><strong>Notes:</strong> ${flight.notes}</p>
+                            </div>
+                        `;
+                    });
+                }
+                itemDiv.innerHTML = content;
+                itineraryList.appendChild(itemDiv);
+            });
+            updateDashboard(); // Update dashboard with next event
+        }
+
+
+        // Google Maps Initialization and Directions Rendering functions removed as no maps will be present.
+        // let mainMap;
+        // let mainDirectionsService;
+        // let mainDirectionsRenderer;
+
+        function initMap() {
+            // This function is now empty as maps are removed.
+            // The Google Maps API script tag calls this, so it needs to exist.
+            // We can log a message to confirm its removal.
+            console.log("initMap called, but maps are intentionally removed.");
+        }
+
+        // function calculateAndDisplayRouteOnMainMap(...) has been removed.
+
+        function renderPackingList() {
+            packingChecklist.innerHTML = '';
+            travelData.packingList.forEach((item, index) => {
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input'); // Corrected
+                checkbox.type = 'checkbox';
+                checkbox.checked = item.packed;
+                checkbox.dataset.index = index; // Store index for easy updating
+                checkbox.addEventListener('change', (e) => {
+                    travelData.packingList[e.target.dataset.index].packed = e.target.checked;
+                    saveDataToFirebase();
+                });
+
+                const span = document.createElement('span');
+                span.textContent = item.item;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'X';
+                deleteBtn.style.marginLeft = '10px';
+                deleteBtn.style.backgroundColor = '#dc3545'; // Red color
+                deleteBtn.style.padding = '5px 10px';
+                deleteBtn.style.fontSize = '0.8em';
+                deleteBtn.style.borderRadius = '5px';
+                deleteBtn.addEventListener('click', () => {
+                    travelData.packingList.splice(index, 1);
+                    saveDataToFirebase();
+                });
+
+                label.appendChild(checkbox);
+                label.appendChild(span);
+                label.appendChild(deleteBtn);
+                packingChecklist.appendChild(label);
+            });
+        }
+
+        function renderBudget() {
+            let totalFixed = 0;
+            travelData.budget.fixedCosts.forEach(cost => {
+                totalFixed += cost.amount;
+            });
+            totalFixedCostSpan.textContent = `£${totalFixed.toFixed(2)}`;
+
+            let totalVariable = 0;
+            expenseListDiv.innerHTML = '<h3>Expense Breakdown:</h3>'; // Clear previous
+            // Display Fixed Costs
+            travelData.budget.fixedCosts.forEach((expense, index) => {
+                const expenseItem = document.createElement('div');
+                expenseItem.className = 'expense-item';
+                expenseItem.innerHTML = `
+                    <p><strong>${expense.description}</strong> - £${expense.amount.toFixed(2)} (Fixed Cost)</p>
+                `;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'X';
+                deleteBtn.style.marginLeft = 'auto'; // Push button to the right
+                deleteBtn.style.backgroundColor = '#dc3545'; // Red color
+                deleteBtn.style.padding = '5px 10px';
+                deleteBtn.style.fontSize = '0.8em';
+                deleteBtn.style.borderRadius = '5px';
+                deleteBtn.addEventListener('click', () => {
+                    travelData.budget.fixedCosts.splice(index, 1); // Delete from fixed costs
+                    saveDataToFirebase();
+                });
+                expenseItem.appendChild(deleteBtn);
+                expenseListDiv.appendChild(expenseItem);
+            });
+
+            // Display Variable Expenses
+            travelData.budget.expenses.forEach((expense, index) => {
+                totalVariable += expense.amount;
+                const expenseItem = document.createElement('div');
+                expenseItem.className = 'expense-item';
+                expenseItem.innerHTML = `
+                    <p><strong>${expense.description}</strong> - £${expense.amount.toFixed(2)} (${expense.category})</p>
+                `;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'X';
+                deleteBtn.style.marginLeft = 'auto'; // Push button to the right
+                deleteBtn.style.backgroundColor = '#dc3545';
+                deleteBtn.style.padding = '5px 10px';
+                deleteBtn.style.fontSize = '0.8em';
+                deleteBtn.style.borderRadius = '5px';
+                deleteBtn.addEventListener('click', () => {
+                    travelData.budget.expenses.splice(index, 1); // Delete from variable expenses
+                    saveDataToFirebase();
+                });
+                expenseItem.appendChild(deleteBtn);
+                expenseListDiv.appendChild(expenseItem);
+            });
+            totalVariableSpendingSpan.textContent = `£${totalVariable.toFixed(2)}`;
+        }
+
+        function renderNotes() {
+            generalNotesTextarea.value = travelData.notes.general;
+            carerContactInput.value = travelData.notes.kiddoInfo.carerContact;
+            kidsAllergiesTextarea.value = travelData.notes.kiddoInfo.allergies;
+            kidsRoutineTextarea.value = travelData.notes.kiddoInfo.routine;
+            mealFridayInput.value = travelData.notes.kiddoInfo.meals.friday;
+            mealSaturdayInput.value = travelData.notes.kiddoInfo.meals.saturday;
+            mealSundayInput.value = travelData.notes.kiddoInfo.meals.sunday;
+
+            souvenirListUl.innerHTML = ''; // Clear previous
+            travelData.notes.souvenirs.forEach((souvenir, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${souvenir.item} (£${souvenir.budget ? souvenir.budget.toFixed(2) : 'N/A'})`;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'X';
+                deleteBtn.style.backgroundColor = '#dc3545';
+                deleteBtn.style.padding = '3px 8px';
+                deleteBtn.style.fontSize = '0.7em';
+                deleteBtn.style.marginLeft = '10px';
+                deleteBtn.style.borderRadius = '3px';
+                deleteBtn.addEventListener('click', () => {
+                    travelData.notes.souvenirs.splice(index, 1);
+                    saveDataToFirebase();
+                });
+                li.appendChild(deleteBtn);
+                souvenirListUl.appendChild(li);
+            });
+        }
+
+        function renderPhotos() {
+            photoGalleryDiv.innerHTML = ''; // Clear previous
+            if (travelData.photos.length === 0) {
+                photoGalleryDiv.innerHTML = '<p>No photos uploaded yet. Get snapping!</p>';
+            } else {
+                travelData.photos.forEach((photoBase64, index) => {
+                    const img = document.createElement('img');
+                    img.src = photoBase64;
+                    img.alt = `Trip Photo ${index + 1}`;
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'X';
+                    deleteBtn.style.backgroundColor = '#dc3545';
+                    deleteBtn.style.padding = '3px 8px';
+                    deleteBtn.style.fontSize = '0.7em';
+                    deleteBtn.style.position = 'absolute';
+                    deleteBtn.style.top = '5px';
+                    deleteBtn.style.right = '5px';
+                    deleteBtn.style.borderRadius = '3px';
+                    deleteBtn.addEventListener('click', () => {
+                        travelData.photos.splice(index, 1);
+                        saveDataToFirebase();
+                    });
+                    const div = document.createElement('div');
+                    div.style.position = 'relative';
+                    div.appendChild(img);
+                    div.appendChild(deleteBtn);
+                    photoGalleryDiv.appendChild(div);
+                });
+            }
+        }
+
+        // --- Dashboard Update ---
+        function updateDashboard() {
+            const now = new Date();
+            let nextEvent = null;
+            let nextEventDate = new Date('2099-01-01'); // Far future date
+
+            // Combine all event details into a flat array for easy sorting
+            const allEventsWithTimes = [];
+            travelData.itinerary.forEach(day => {
+                const baseDate = new Date(day.date); // 'Friday, 11th July 2025'
+                // Main details for the day
+                day.details.forEach(detail => {
+                    // Attempt to parse time, e.g., '07:00 AM'
+                    const timeParts = detail.time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+                    if (timeParts) {
+                        let hours = parseInt(timeParts[1]);
+                        const minutes = parseInt(timeParts[2]);
+                        const ampm = timeParts[3] ? timeParts[3].toLowerCase() : '';
+
+                        if (ampm === 'pm' && hours < 12) hours += 12;
+                        if (ampm === 'am' && hours === 12) hours = 0; // Midnight 12 AM
+
+                        const eventDateTime = new Date(baseDate);
+                        eventDateTime.setHours(hours, minutes, 0, 0);
+                        allEventsWithTimes.push({
+                            title: `${day.title} - ${detail.description}`,
+                            dateTime: eventDateTime
+                        });
+                    }
+                });
+
+                // Add flight details as events
+                if (day.flight && day.flight.departure) {
+                    const flightDepartureTimeStr = day.flight.departure.match(/(\d{1,2}:\d{2}\s*(?:AM|PM)?)$/i);
+                    if (flightDepartureTimeStr) {
+                        const flightDateTime = new Date(`${day.date} ${flightDepartureTimeStr[0]}`);
+                        allEventsWithTimes.push({
+                            title: `Flight: ${day.flight.airline} ${day.flight.number} - Depart ${day.flight.departure}`,
+                            dateTime: flightDateTime
+                        });
+                    }
+                }
+                if (day.flights_connecting && day.flights_connecting.length > 0) {
+                    day.flights_connecting.forEach(flight => {
+                        const flightDepartureTimeStr = flight.departure.match(/(\d{1,2}:\d{2}\s*(?:AM|PM)?)$/i);
+                        // Extract date from flight.departure string for accurate parsing
+                        const flightDateMatch = flight.departure.match(/(\w+, \d{1,2} \w+ \d{4})/i);
+                        const flightDate = flightDateMatch ? flightDateMatch[0] : day.date; // Use day.date as fallback
+
+                        if (flightDepartureTimeStr) {
+                            const flightDateTime = new Date(`${flightDate} ${flightDepartureTimeStr[0]}`);
+                            allEventsWithTimes.push({
+                                title: `Connecting Flight: ${flight.airline} ${flight.number} - Depart ${flight.departure}`,
+                                dateTime: flightDateTime
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Sort all events by time
+            allEventsWithTimes.sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
+
+            // Find the next upcoming event
+            nextEvent = allEventsWithTimes.find(event => event.dateTime.getTime() > now.getTime());
+
+            if (nextEvent) {
+                nextEventDiv.textContent = `Next Up: ${nextEvent.title}`;
+
+                // Calculate countdown
+                const timeDiff = nextEvent.dateTime.getTime() - now.getTime();
+                const seconds = Math.floor((timeDiff / 1000) % 60);
+                const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+                const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+                countdownDiv.textContent = `(in ${days}d ${hours}h ${minutes}m ${seconds}s)`;
+            } else {
+                nextEventDiv.textContent = "All planned events complete!";
+                countdownDiv.textContent = "";
+            }
+        }
+
+
+        // --- Master Render Function ---
+        function renderAllSections() {
+            renderItinerary();
+            renderPackingList();
+            renderBudget();
+            renderNotes();
+            renderPhotos();
+            renderDocumentsAndLinks(); // New call
+            updateDashboard(); // Initial update
+        }
+
+        // --- Event Listeners ---
+
+        // Packing List
+        addPackingItemForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newItem = newPackingItemInput.value.trim();
+            if (newItem) {
+                travelData.packingList.push({ item: newItem, packed: false, category: 'custom' });
+                newPackingItemInput.value = '';
+                saveDataToFirebase();
+            }
+        });
+
+        // Budget Tracker
+        addExpenseForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const description = expenseDescriptionInput.value.trim();
+            const amount = parseFloat(expenseAmountInput.value);
+            const category = expenseCategorySelect.value;
+
+            if (description && !isNaN(amount) && category) {
+                if (category === 'fixed') {
+                    travelData.budget.fixedCosts.push({ description, amount, date: new Date().toISOString().split('T')[0] });
+                } else {
+                    travelData.budget.expenses.push({ description, amount, category, date: new Date().toISOString().split('T')[0] });
+                }
+                expenseDescriptionInput.value = '';
+                expenseAmountInput.value = '';
+                expenseCategorySelect.value = '';
+                saveDataToFirebase();
+            }
+        });
+
+        // Notes & Kiddo Info
+        saveNotesButton.addEventListener('click', () => {
+            travelData.notes.general = generalNotesTextarea.value.trim();
+            saveDataToFirebase();
+        });
+
+        addSouvenirForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const item = newSouvenirInput.value.trim();
+            const budget = parseFloat(souvenirBudgetInput.value);
+            if (item) {
+                travelData.notes.souvenirs.push({ item, budget: isNaN(budget) ? null : budget });
+                newSouvenirInput.value = '';
+                souvenirBudgetInput.value = '';
+                saveDataToFirebase();
+            }
+        });
+
+        saveKiddoInfoButton.addEventListener('click', () => {
+            travelData.notes.kiddoInfo.carerContact = carerContactInput.value.trim();
+            travelData.notes.kiddoInfo.allergies = kidsAllergiesTextarea.value.trim();
+            travelData.notes.kiddoInfo.routine = kidsRoutineTextarea.value.trim();
+            mealFridayInput.value = travelData.notes.kiddoInfo.meals.friday;
+            mealSaturdayInput.value = travelData.notes.kiddoInfo.meals.saturday;
+            mealSundayInput.value = travelData.notes.kiddoInfo.meals.sunday;
+            saveDataToFirebase();
+        });
+
+        // Photo Upload (Client-side display only for this self-contained file)
+        uploadPhotosButton.addEventListener('click', () => {
+            const files = photoUploadInput.files;
+            if (files.length > 0) {
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        travelData.photos.push(e.target.result); // Store as Base64
+                        saveDataToFirebase();
+                    };
+                    reader.readAsDataURL(file);
+                });
+                photoUploadInput.value = ''; // Clear file input
+            }
+        });
+
+
+
+        function renderDocumentsAndLinks() {
+            // Populate form fields
+            passportNumberInput.value = travelData.documentsAndLinks.passportNumber;
+            passportExpiryInput.value = travelData.documentsAndLinks.passportExpiry;
+            travelInsuranceTextarea.value = travelData.documentsAndLinks.travelInsurance;
+            localEmergencyTextarea.value = travelData.documentsAndLinks.localEmergency;
+
+            // Render links
+            importantLinksListUl.innerHTML = ''; // Clear previous
+            travelData.documentsAndLinks.importantLinks.forEach((link, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${link.url}" target="_blank" style="color: var(--primary-blue); font-weight: bold;">${link.description}</a>`;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'X';
+                deleteBtn.style.backgroundColor = '#dc3545';
+                deleteBtn.style.padding = '3px 8px';
+                deleteBtn.style.fontSize = '0.7em';
+                deleteBtn.style.marginLeft = '10px';
+                deleteBtn.style.borderRadius = '3px';
+                deleteBtn.addEventListener('click', () => {
+                    travelData.documentsAndLinks.importantLinks.splice(index, 1);
+                    saveDataToFirebase();
+                });
+                li.appendChild(deleteBtn);
+                importantLinksListUl.appendChild(li);
+            });
+        }
+
+        // Event listeners for Documents & Links
+        saveDocumentsButton.addEventListener('click', () => {
+            travelData.documentsAndLinks.passportNumber = passportNumberInput.value.trim();
+            travelData.documentsAndLinks.passportExpiry = passportExpiryInput.value.trim();
+            travelData.documentsAndLinks.travelInsurance = travelInsuranceTextarea.value.trim();
+            travelData.documentsAndLinks.localEmergency = localEmergencyTextarea.value.trim();
+            saveDataToFirebase();
+        });
+
+        addImportantLinkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const description = linkDescriptionInput.value.trim();
+            const url = linkURLInput.value.trim();
+            if (description && url) {
+                travelData.documentsAndLinks.importantLinks.push({ description, url });
+                linkDescriptionInput.value = '';
+                linkURLInput.value = '';
+                saveDataToFirebase();
+            }
+        });
+
+
+        // --- Initial Load ---
+        // Authenticate anonymously (simple for personal use)
+        firebase.auth().signInAnonymously()
+            .then((userCredential) => {
+                userId = userCredential.user.uid; // This will get a NEW ID or use a cached one
+                // IMPORTANT: Hardcode your specific User ID here to load your original data
+                // For this specific case, we are hardcoding userId based on previous finding.
+                userId = 'ysAsrVtD6CPB8fTVq8E0r9f4A...';
+
+                // Using a specific document ID for this travel plan
+                travelPlanRef = db.collection('users').doc(userId).collection('travel_plans').doc('my_wee_wander_plan_v3');
+                console.log("Authenticated anonymously. Using hardcoded User ID:", userId);
+                loadDataFromFirebase(); // Load data once authenticated
+            })
+            .catch((error) => {
+                console.error("Anonymous authentication failed:", error);
+            });
+
+        // Start the dashboard update interval for continuous countdown
+        setInterval(updateDashboard, 1000); // Update every second
+
+    </script>
+</body>
+
+</html>
