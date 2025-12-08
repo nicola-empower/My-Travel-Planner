@@ -1,5 +1,8 @@
 # My Wee Wander Planner
 
+<img width="2841" height="1518" alt="image" src="https://github.com/user-attachments/assets/1ac0ab36-b2b3-43fd-a8f1-d8c8daaf5ba5" />
+
+
 **My Wee Wander Planner** is a customisable, all-in-one web app for planning adventures: organise itineraries, packing, budgets, notes, documents and travel photos.
 
 ##  Features
